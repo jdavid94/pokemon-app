@@ -1,0 +1,17 @@
+/* Class to wrap table and lookup field */
+.table-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* We ensure that the search field occupies the entire available width */
+.full-width {
+  width: 100%;
+}
+
+/* Ensures that the board also occupies the full width */
+table {
+  width: 100%;
+  margin-top: 10px;
+}

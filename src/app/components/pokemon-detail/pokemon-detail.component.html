@@ -1,0 +1,9 @@
+<mat-card>
+  <img [src]="pokemon.sprite" alt="{{ pokemon.name }}" />
+  <h2>{{ pokemon.name }}</h2>
+  <p>Habilidades: {{ pokemon.abilities.join(', ') }}</p>
+  <p>Pokemon Details: </p>
+  <ul>
+    <li *ngFor="let stat of pokemon.stats">{{ stat.name }}: {{ stat.value }}</li>
+  </ul>
+</mat-card>
