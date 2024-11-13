@@ -31,7 +31,7 @@ To run the application locally, follow these steps:
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/jdavid94/pokemon-app.git
-   cd pokemon-table-app
+
 2. Navigate to the project directory:
     ```bash
     cd pokemon-app
@@ -50,6 +50,7 @@ To run the application locally, follow these steps:
     http://localhost:4200
 
 ## Project Structure
+
 src/
  ├── app/
  │    ├── components/
@@ -64,3 +65,4 @@ src/
  │    └── ...
  ├── environments/
  └── index.html
+
