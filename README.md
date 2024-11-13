@@ -1,4 +1,4 @@
-# Pokémon Table App
+# Pokémon App
 
 ## Description
 The Pokémon App is a web application built using Angular and Angular Material, which fetches data from the [Pokémon API](https://pokeapi.co/) to display a list of Pokémon in a table. It allows users to search for Pokémon by name, filter by type, and view detailed information about each Pokémon. The application also features pagination to handle large datasets efficiently.
