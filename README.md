@@ -1,27 +1,66 @@
-# PokemonDataExplorer
+# Pokémon Table App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.11.
+## Description
+The Pokémon App is a web application built using Angular and Angular Material, which fetches data from the [Pokémon API](https://pokeapi.co/) to display a list of Pokémon in a table. It allows users to search for Pokémon by name, filter by type, and view detailed information about each Pokémon. The application also features pagination to handle large datasets efficiently.
 
-## Development server
+## Libraries & Decisions
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### Angular
+- The application is built using **Angular** as the frontend framework. It provides a structured, scalable, and maintainable architecture for building single-page applications.
+  
+### Angular Material
+- **Angular Material** was used to provide pre-built, customizable UI components such as tables, pagination, form fields, buttons, and progress bars. This ensures a consistent and responsive design with minimal effort.
 
-## Code scaffolding
+### RxJS
+- **RxJS** is used for handling asynchronous operations and working with observables. It's integral to interacting with the API and managing the state of the data in the application.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### NgModel (Two-way data binding)
+- **NgModel** is used for binding data between the input fields (search and filter) and the component class, allowing dynamic updates to the view.
 
-## Build
+## Setup Instructions
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+To run the application locally, follow these steps:
 
-## Running unit tests
+## Prerequisites
+- Node.js (version 16.x or higher)
+- Angular CLI (version 15.x or higher)
+- npm (version 8.x or higher)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Project Setup
 
-## Running end-to-end tests
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/jdavid94/pokemon-app.git
+   cd pokemon-table-app
+2. Navigate to the project directory:
+    ```bash
+    cd pokemon-app
+    ```
+3. Install dependencies:
+    ```bash
+    npm install
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Running the Application
+1. Start the Angular development server:
+    ```bash
+    ng serve
+    ```
+2. Open your browser and go to:
+    ```
+    http://localhost:4200
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Project Structure
+src/
+ ├── app/
+ │    ├── components/
+ │    │    ├── pokemon-table/
+ │    │    ├── pokemon-detail/
+ │    │    └── ...
+ │    ├── services/
+ │    │    └── pokemon.service.ts
+ │    ├── app.module.ts
+ │    └── ...
+ ├── assets/
+ │    └── ...
+ ├── environments/
+ └── index.html

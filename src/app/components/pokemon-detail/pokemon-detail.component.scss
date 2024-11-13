@@ -1,0 +1,58 @@
+.detail-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.pokemon-card {
+  max-width: 400px;
+  width: 100%;
+}
+
+.pokemon-avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+mat-card-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+mat-card-subtitle {
+  font-size: 14px;
+  color: gray;
+}
+
+
+.abilities-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+
+.ability-card {
+  min-width: 100px;
+  flex: 1;
+}
+
+mat-progress-bar {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.custom-red-button {
+  background-color: #f44336 !important;
+  color: #ffffff !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+}
+
+.button-text {
+  margin-left: 0.5rem;
+  font-weight: bold;
+}

@@ -1,12 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, forkJoin, map, Observable, switchMap, throwError } from 'rxjs';
+import { UrlConfig } from '../config/url.config';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PokemonService {
-  private apiUrl = 'https://pokeapi.co/api/v2';
+
+  private apiUrl = UrlConfig.calculateEmiUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -32,7 +34,12 @@ export class PokemonService {
       );
   }
 
-  getPokemonDetails(name: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${name}`);
+  getPokemonDetails(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/pokemon/${id}`).pipe(
+      catchError((error) => {
+        console.error('Error fetching Pokemon details:', error);
+        throw error;
+      })
+    );
   }
 }

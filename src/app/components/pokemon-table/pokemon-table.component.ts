@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatSort } from '@angular/material/sort';
 import { MatSelectModule } from '@angular/material/select';
+import { MatChipsModule } from '@angular/material/chips';
 
 export interface Pokemon{
   id: number;
@@ -31,6 +32,7 @@ export interface Pokemon{
     MatPaginator,
     MatPaginatorModule,
     MatSelectModule,
+    MatChipsModule,
   ],
   templateUrl: './pokemon-table.component.html',
   styleUrl: './pokemon-table.component.scss',
@@ -47,30 +49,28 @@ export class PokemonTableComponent implements OnInit {
   searchTerm: string = '';
   selectedType: string = '';
   types: string[] = ['Grass', 'Fire', 'Water', 'Electric', 'Bug', 'Normal'];
+  limit : number = 50;
+  offset : number = 0;
 
   constructor(private pokemonService: PokemonService, private router: Router) {}
 
   ngOnInit(): void {
-    this.loadPokemons(50, 0);
+    this.loadPokemons(this.limit, this.offset);
   }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.paginator.page.subscribe(() => {
-      this.loadPokemons(
-        this.paginator.pageSize,
-        this.paginator.pageIndex * this.paginator.pageSize
-      );
+      this.loadPokemons(this.paginator.length, this.offset);
     });
   }
 
   loadPokemons(limit: number, offset: number): void {
-    this.pokemonService.getPokemonList(50, 0).subscribe(
-      (data) => {
-        console.log(data);
+    this.pokemonService.getPokemonList(limit, offset).subscribe({
+      next: (data) => {
         this.pokemonData = data;
-        this.totalPokemons = data.count;
+        this.totalPokemons = data.length;
         this.dataSource.data = this.pokemonData.map((pokemon) => ({
           id: pokemon.id,
           name: pokemon.name,
@@ -78,14 +78,14 @@ export class PokemonTableComponent implements OnInit {
           sprite: pokemon.sprites.front_default,
         }));
       },
-      (error) => {
-        console.error('Error al cargar los Pokémon:', error);
-      }
-    );
+      error: (error) => {
+        console.error('Error loading Pokemon:', error);
+      },
+    });
   }
 
-  navigateToDetail(name: string): void {
-    this.router.navigate(['/pokemon', name]);
+  navigateToDetail(id: string): void {
+    this.router.navigate(['/pokemon', id]);
   }
 
   applySearchFilter(): void {

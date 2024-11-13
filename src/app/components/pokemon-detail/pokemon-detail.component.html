@@ -1,9 +1,52 @@
-<mat-card>
-  <img [src]="pokemon.sprite" alt="{{ pokemon.name }}" />
-  <h2>{{ pokemon.name }}</h2>
-  <p>Habilidades: {{ pokemon.abilities.join(', ') }}</p>
-  <p>Pokemon Details: </p>
-  <ul>
-    <li *ngFor="let stat of pokemon.stats">{{ stat.name }}: {{ stat.value }}</li>
-  </ul>
-</mat-card>
+<div class="detail-container" *ngIf="pokemon">
+  <mat-card class="pokemon-card">
+
+    <mat-card-header>
+      <div mat-card-avatar class="pokemon-avatar">
+        <img [src]="pokemon.sprites.front_default" [alt]="pokemon.name" />
+      </div>
+      <mat-card-title>{{ pokemon.name | titlecase }}</mat-card-title>
+      <mat-card-subtitle>ID: {{ pokemon.id }}</mat-card-subtitle>
+    </mat-card-header>
+
+
+    <img mat-card-image [src]="pokemon.sprites.other['official-artwork'].front_default" [alt]="pokemon.name" />
+
+
+    <mat-card-content>
+      <p>
+        <strong>Height:</strong> {{ pokemon.height }}
+      </p>
+      <p>
+        <strong>Weight:</strong> {{ pokemon.weight }}
+      </p>
+
+
+      <h3>Abilities</h3>
+      <div class="abilities-container">
+        <mat-card *ngFor="let ability of pokemon.abilities" class="ability-card">
+          <mat-card-content>
+            {{ ability.ability.name | titlecase }}
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <h3>Stats</h3>
+      <mat-progress-bar *ngFor="let stat of pokemon.stats" [value]="stat.base_stat" mode="determinate" color="primary">
+      </mat-progress-bar>
+      <ul>
+        <li *ngFor="let stat of pokemon.stats">
+          <strong>{{ stat.stat.name | titlecase }}:</strong> {{ stat.base_stat }}
+        </li>
+      </ul>
+    </mat-card-content>
+    
+    <mat-card-actions>
+      <br>
+      <button mat-raised-button class="custom-red-button" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+        <span class="button-text">Back</span>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
