@@ -49,20 +49,7 @@ To run the application locally, follow these steps:
     ```
     http://localhost:4200
 
-## Project Structure
-
-src/
- ├── app/
- │    ├── components/
- │    │    ├── pokemon-table/
- │    │    ├── pokemon-detail/
- │    │    └── ...
- │    ├── services/
- │    │    └── pokemon.service.ts
- │    ├── app.module.ts
- │    └── ...
- ├── assets/
- │    └── ...
- ├── environments/
- └── index.html
-
+## Assumptions Made
+-The Pokémon API (https://pokeapi.co/) is assumed to be publicly available and functioning properly. It provides the necessary data (e.g.,  Pokémon names, types, abilities, etc.).
+-The application assumes that each Pokémon object will contain certain properties like id, name, types, and sprites.
+-The pagination in the table assumes the API will return the expected number of items based on the limit and offset parameters passed in the API request.
