@@ -8,7 +8,7 @@ import { UrlConfig } from '../config/url.config';
 })
 export class PokemonService {
 
-  private apiUrl = UrlConfig.calculateEmiUrl;
+  private apiUrl = UrlConfig.pokemonUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -43,3 +43,5 @@ export class PokemonService {
     );
   }
 }
+
+
