@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, forkJoin, map, Observable, switchMap, throwError } from 'rxjs';
+import { catchError, forkJoin, Observable, switchMap } from 'rxjs';
 import { UrlConfig } from '../config/url.config';
 
 @Injectable({

@@ -12,13 +12,6 @@ import { MatSort } from '@angular/material/sort';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
 
-export interface Pokemon{
-  id: number;
-  name: string;
-  types: string[];
-  sprite: string;
-}
-
 @Component({
   selector: 'app-pokemon-table',
   standalone: true,
