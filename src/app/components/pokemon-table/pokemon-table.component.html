@@ -12,7 +12,7 @@
       <mat-select [(value)]="selectedType" (selectionChange)="applyTypeFilter()">
         <mat-option value="">All Types</mat-option>
         <mat-option *ngFor="let type of types" [value]="type">
-          {{ type }}
+          {{ type | titlecase }}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -43,6 +43,7 @@
       <ng-container matColumnDef="sprite">
         <th mat-header-cell *matHeaderCellDef> Sprite </th>
         <td mat-cell *matCellDef="let element">
+          <!-- Asumiendo que 'sprite' ahora es el campo con la URL de la imagen -->
           <img [src]="element.sprite" [alt]="element.name" class="sprite-image" />
         </td>
       </ng-container>

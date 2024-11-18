@@ -1,13 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, forkJoin, Observable, switchMap } from 'rxjs';
+import { catchError, forkJoin, map, Observable, switchMap } from 'rxjs';
 import { UrlConfig } from '../config/url.config';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PokemonService {
-
   private apiUrl = UrlConfig.pokemonUrl;
 
   constructor(private http: HttpClient) {}
@@ -42,6 +41,16 @@ export class PokemonService {
       })
     );
   }
+
+  getPokemonTypes(): Observable<string[]> {
+    return this.http
+      .get<{ results: { name: string }[] }>(`${this.apiUrl}/type`)
+      .pipe(
+        map((response: { results: any[]; }) => response.results.map((type: { name: any; }) => type.name)),
+        catchError((error) => {
+          console.error('Error fetching Pokemon types:', error);
+          throw error;
+        })
+      );
+  }
 }
-
-

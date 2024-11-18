@@ -41,14 +41,15 @@ export class PokemonTableComponent implements OnInit {
 
   searchTerm: string = '';
   selectedType: string = '';
-  types: string[] = ['Grass', 'Fire', 'Water', 'Electric', 'Bug', 'Normal'];
-  limit : number = 50;
-  offset : number = 0;
+  types: string[] = [];
+  limit: number = 50;
+  offset: number = 0;
 
   constructor(private pokemonService: PokemonService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadPokemons(this.limit, this.offset);
+    this.loadPokemonTypes();
   }
 
   ngAfterViewInit(): void {
@@ -56,6 +57,17 @@ export class PokemonTableComponent implements OnInit {
     this.dataSource.sort = this.sort;
     this.paginator.page.subscribe(() => {
       this.loadPokemons(this.paginator.length, this.offset);
+    });
+  }
+
+  loadPokemonTypes(): void {
+    this.pokemonService.getPokemonTypes().subscribe({
+      next: (types) => {
+        this.types = types;
+      },
+      error: (error) => {
+        console.error('Error loading Pokemon types:', error);
+      },
     });
   }
 
@@ -82,25 +94,34 @@ export class PokemonTableComponent implements OnInit {
   }
 
   applySearchFilter(): void {
-    this.dataSource.filter = this.searchTerm.trim().toLowerCase();
+    this.updateFilter();
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
 
   applyTypeFilter(): void {
-    if (this.selectedType) {
-      this.dataSource.filterPredicate = (data, filter: string) => {
-        return data.types.some((type: string) =>
-          type.toLowerCase().includes(filter)
-        );
-      };
-      this.dataSource.filter = this.selectedType.trim().toLowerCase();
-    } else {
-      this.dataSource.filter = '';
-    }
+    this.updateFilter();
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  updateFilter(): void {
+    this.dataSource.filterPredicate = (data) => {
+      const searchTermMatch = data.name
+        .toLowerCase()
+        .includes(this.searchTerm.trim().toLowerCase());
+      const typeMatch = this.selectedType
+        ? data.types.some(
+            (type: string) =>
+              type.toLowerCase() === this.selectedType.trim().toLowerCase()
+          )
+        : true;
+      return searchTermMatch && typeMatch;
+    };
+    this.dataSource.filter =
+      this.searchTerm.trim().toLowerCase() +
+      this.selectedType.trim().toLowerCase();
   }
 }
