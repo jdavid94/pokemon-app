@@ -34,7 +34,6 @@ export class PokemonTableComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'types', 'sprite'];
   dataSource = new MatTableDataSource<any>();
   pokemonData: any[] = [];
-  totalPokemons: number = 0;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -75,7 +74,6 @@ export class PokemonTableComponent implements OnInit {
     this.pokemonService.getPokemonList(limit, offset).subscribe({
       next: (data) => {
         this.pokemonData = data;
-        this.totalPokemons = data.length;
         this.dataSource.data = this.pokemonData.map((pokemon) => ({
           id: pokemon.id,
           name: pokemon.name,
@@ -109,12 +107,8 @@ export class PokemonTableComponent implements OnInit {
 
   updateFilter(): void {
     this.dataSource.filterPredicate = (data) => {
-      const searchTermMatch = data.name
-        .toLowerCase()
-        .includes(this.searchTerm.trim().toLowerCase());
-      const typeMatch = this.selectedType
-        ? data.types.some(
-            (type: string) =>
+      const searchTermMatch = data.name.toLowerCase().includes(this.searchTerm.trim().toLowerCase());
+      const typeMatch = this.selectedType ? data.types.some((type: string) =>
               type.toLowerCase() === this.selectedType.trim().toLowerCase()
           )
         : true;

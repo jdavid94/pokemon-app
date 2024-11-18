@@ -22,6 +22,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 })
 export class PokemonDetailComponent implements OnInit {
   pokemon: any;
+  errorMessage: string | undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,12 +31,23 @@ export class PokemonDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.loadPokemonDetails();
+  }
+
+  loadPokemonDetails(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    if (id !== null) {
-      this.pokemonService.getPokemonDetails(id).subscribe((data) => {
-        this.pokemon = data;
-      });
+    if (!id) {
+      this.errorMessage = 'Invalid Pokemon ID';
+      return;
     }
+    this.pokemonService.getPokemonDetails(id).subscribe({
+      next: (data: any) => {
+        this.pokemon = data;
+      },
+      error: () => {
+        this.errorMessage = 'Failed to load Pokemon Details.';
+      },
+    });
   }
 
   goBack(): void {
